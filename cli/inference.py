@@ -58,6 +58,12 @@ def parse_args():
     parser.add_argument(
         "--speed", choices=["very_low", "low", "moderate", "high", "very_high"]
     )
+    parser.add_argument(
+        "--output_file",
+        type=str,
+        default="test.wav",
+        help="filename to save generated audio file",
+    )
     return parser.parse_args()
 
 
@@ -87,8 +93,7 @@ def run_tts(args):
     model = SparkTTS(args.model_dir, device)
 
     # Generate unique filename using timestamp
-    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-    save_path = os.path.join(args.save_dir, f"{timestamp}.wav")
+    save_path = os.path.join(args.save_dir, args.output_file)
 
     logging.info("Starting inference...")
 
